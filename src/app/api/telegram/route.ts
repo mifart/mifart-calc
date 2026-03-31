@@ -6,11 +6,15 @@ export async function POST(req: Request) {
 
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
+    
+    // Секреты для MAX (берем из ENV для безопасности)
+    const MAX_TOKEN = process.env.MAX_TOKEN || "f9LHodD0cOLVM3Z3_odT6Acw0seh44lOKLM8AAiqzMJ4sbQxmwG7SSJIK6wEiDPhq-LVTsq9DjoaKN9o5oZG";
+    const USER_ID = process.env.MAX_USER_ID || "7460059486";
 
     // Ссылки для быстрого перехода менеджера
-    const maxBotLink = "https://max.ru/id7460059486_bot";
+    const maxBotLink = `https://max.ru/id${USER_ID}_bot`;
     const vkLink = "https://vk.com/mif174";
-    const tgLink = `https://t.me/+79953800888`; // Основной контакт компании
+    const tgLink = `https://t.me/+79953800888`; 
 
     const text = `
 🔥 <b>НОВАЯ ЗАЯВКА MIFART</b>
@@ -43,21 +47,20 @@ export async function POST(req: Request) {
       });
     }
 
-    // 2. ОТПРАВЛЯЕМ В MAX (как дубликат, по желанию заказчика)
-    const MAX_TOKEN = "f9LHodD0cOLVM3Z3_odT6Acw0seh44lOKLM8AAiqzMJ4sbQxmwG7SSJIK6wEiDPhq-LVTsq9DjoaKN9o5oZG";
-    const USER_ID = "7460059486";
-    
-    await fetch(`https://platform-api.max.ru/messages?user_id=${USER_ID}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": MAX_TOKEN
-      },
-      body: JSON.stringify({
-        text: text, // Используем тот же HTML текст
-        format: "html"
-      })
-    });
+    // 2. ОТПРАВЛЯЕМ В MAX (дубликат)
+    if (MAX_TOKEN && USER_ID) {
+        await fetch(`https://platform-api.max.ru/messages?user_id=${USER_ID}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": MAX_TOKEN
+          },
+          body: JSON.stringify({
+            text: text, 
+            format: "html"
+          })
+        });
+    }
 
     return NextResponse.json({ success: true });
   } catch (e) {
