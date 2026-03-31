@@ -4,10 +4,10 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
+    // ТОКЕНЫ И ID (сначала берем из переменных окружения Vercel, потом из дефолтов)
+    const token = process.env.TELEGRAM_BOT_TOKEN || "8718455250:AAHcMiIx3m1-ZRbQEuHgK1Knoito5lDKPHg";
+    const chatId = process.env.TELEGRAM_CHAT_ID || "1298647947";
     
-    // Секреты для MAX (берем из ENV для безопасности)
     const MAX_TOKEN = process.env.MAX_TOKEN || "f9LHodD0cOLVM3Z3_odT6Acw0seh44lOKLM8AAiqzMJ4sbQxmwG7SSJIK6wEiDPhq-LVTsq9DjoaKN9o5oZG";
     const USER_ID = process.env.MAX_USER_ID || "7460059486";
 
