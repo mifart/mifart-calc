@@ -4,7 +4,7 @@ import { IMaskInput } from "react-imask";
 import { Logs, Home, Bath, Trees, Carport, Sprout, HardHat, Layers, Truck, Share2, Paperclip, X, Image as ImageIcon, FileText, File } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
-/* ─── CONSTANTS ─────────────────────────────────── */
+/* --- CONSTANTS ----------------------------------- */
 const PHONE = "+7 (995) 380-08-88";
 const DEFAULT_REGION = "Челябинская область";
 
@@ -78,7 +78,7 @@ const PACKAGES: Record<string, Array<{ id: string; label: string; price: number;
 const LOAD_MAP: Record<string, number> = { piles: 300, house: 350, bath: 300, gazebo: 180, canopy: 220 };
 const PILE_P: Record<number, number> = { 76: 6000, 89: 7600, 108: 9800 };
 
-/* ─── I18N DICTIONARY ───────────────────────────── */
+/* --- I18N DICTIONARY ----------------------------- */
 const DICTIONARY = {
   ru: {
     what: "ЧТО",
@@ -104,7 +104,7 @@ const DICTIONARY = {
 };
 const t = DICTIONARY["ru"];
 
-/* ─── PILE CALCULATOR ────────────────────────────── */
+/* --- PILE CALCULATOR ----------------------------- */
 interface PileResult {
   cntX: number; cntY: number; stepX: number; stepY: number;
   total: number; diam: number; price: number; area: string;
@@ -131,7 +131,7 @@ function calcPiles(data: {
   return { cntX, cntY, stepX, stepY, total, diam, price: total * PILE_P[diam], area: area.toFixed(1) };
 }
 
-/* ─── SVG СВАЙНОЕ ПОЛЕ ───────────────────────────── */
+/* --- SVG СВАЙНОЕ ПОЛЕ ----------------------------- */
 function PileGrid({ cntX, cntY, stepX, stepY, diam }: {
   cntX: number; cntY: number; stepX: number; stepY: number; diam: number;
 }) {
@@ -233,7 +233,7 @@ function PileGrid({ cntX, cntY, stepX, stepY, diam }: {
   );
 }
 
-/* ─── LOGO SVG — по фото ──────────────────────────── */
+/* --- LOGO SVG — по фото ---------------------------- */
 function Logo({ size = 52 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
@@ -257,7 +257,7 @@ function Logo({ size = 52 }: { size?: number }) {
   );
 }
 
-/* ─── УТИЛИТЫ ────────────────────────────────────── */
+/* --- УТИЛИТЫ -------------------------------------- */
 const fmtPr = (n: number) => n.toLocaleString("ru-RU") + " ₽";
 const haptic = () => { if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate(15); };
 
@@ -289,7 +289,7 @@ function Chk({ label, checked, onChange }: { label: string; checked: boolean; on
   );
 }
 
-/* ─── ПАКЕТ-КАРТОЧКА ─────────────────────────────── */
+/* --- ПАКЕТ-КАРТОЧКА ------------------------------- */
 function PkgCard({ pkg, selected, onSelect, area }: {
   pkg: { id: string; label: string; price: number; roof: string; items: string[] };
   selected: boolean; onSelect: () => void; area: string;
@@ -334,7 +334,7 @@ function PkgCard({ pkg, selected, onSelect, area }: {
   );
 }
 
-/* ─── LAYOUT SHELL ──────────────────────────────── */
+/* --- LAYOUT SHELL -------------------------------- */
 const Shell = ({ children, back, bs, onBack }: { children: React.ReactNode; back?: boolean; bs?: Screen; onBack?: () => void }) => (
   <>
     <style>{`
@@ -377,7 +377,7 @@ const Shell = ({ children, back, bs, onBack }: { children: React.ReactNode; back
   </>
 );
 
-/* ─── LEAD FORM ─────────────────────────────────── */
+/* --- LEAD FORM ----------------------------------- */
 function LeadForm({ name, onNameChange, phone, onPhoneChange, fileName, onFileChange, onFileRemove, onSubmit, onReset, disabled }: {
   name: string; onNameChange: (v: string) => void;
   phone: string; onPhoneChange: (v: string) => void;
@@ -435,9 +435,9 @@ function LeadForm({ name, onNameChange, phone, onPhoneChange, fileName, onFileCh
   );
 }
 
-/* ═══════════════════════════════════════════════════
+/* ===================================================
    MAIN APP
-═══════════════════════════════════════════════════ */
+=================================================== */
 type Screen = "home" | "form_piles" | "form_house" | "form_bath" | "form_gazebo" | "form_canopy" |
   "form_landscape" | "form_asphalt" | "form_covering" | "form_cargo" | "result";
 
@@ -449,7 +449,7 @@ interface Service {
 }
 type Svc = Service | null;
 
-/* ─── INITIAL STATES ────────────────────────────── */
+/* --- INITIAL STATES ------------------------------ */
 const initialPilesForm = { l: "", w: "", heavy: false, mansard: false, snow: false };
 const initialBuildForm = { l: "", w: "", h: "", pkg: "std", kit: "" };
 const initialIndividualForm = { area: "", comment: "" };
@@ -535,7 +535,7 @@ export default function MifartMiniApp() {
     setCargoForm(s => ({ ...s, error: "" })); setScreen("result");
   };
 
-  /* ─── ОТПРАВКА ЗАЯВКИ В МЕССЕНДЖЕР MAX ─── */
+  /* --- ОТПРАВКА ЗАЯВКИ В МЕССЕНДЖЕР MAX --- */
   const handleSendLead = async () => {
     if (!leadForm.name || leadForm.phone.length < 18 || isSubmitting) return;
     setIsSubmitting(true);
@@ -667,9 +667,9 @@ export default function MifartMiniApp() {
   );
 }
 
-/* ═══════════════════════════════════════════════════
+/* ===================================================
    ЭКРАНЫ
-═══════════════════════════════════════════════════ */
+=================================================== */
 
 function HomeScreen({ open, onBack }: { open: (s: Svc) => void; onBack: () => void }) {
   return (

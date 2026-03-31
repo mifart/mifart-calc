@@ -5,7 +5,7 @@
 
 import type { PileInputs, PileGridResult, PileDiameter } from "@/types/pile";
 
-// ─── Таблица нагрузок ───────────────────────────────────────
+// --- Таблица нагрузок ---------------------------------------
 export const LOAD_PRESETS = {
   gazebo: { name: "Беседка / лёгкое строение", min: 150, max: 200, recommended: 180 },
   terrace: { name: "Терраса / навес", min: 180, max: 250, recommended: 220 },
@@ -15,7 +15,7 @@ export const LOAD_PRESETS = {
   utility: { name: "Хозблок", min: 200, max: 300, recommended: 250 },
 } as const;
 
-// ─── Коэффициенты доп. нагрузок ────────────────────────────
+// --- Коэффициенты доп. нагрузок ----------------------------
 export const LOAD_FACTORS = {
   default: 1.2,
   heavy_equipment: 1.1, // печь / тяжёлое оборудование
@@ -23,7 +23,7 @@ export const LOAD_FACTORS = {
   snow: 1.1,             // усиленная снеговая нагрузка
 } as const;
 
-// ─── Цены свай ─────────────────────────────────────────────
+// --- Цены свай ---------------------------------------------
 export const PILE_PRICES: Record<number, number> = {
   76: 6000,
   89: 7500,
@@ -33,7 +33,7 @@ export const PILE_PRICES: Record<number, number> = {
 // Максимальный шаг между сваями (мм)
 export const MAX_PILE_STEP_MM = 2500;
 
-// ─── Расчёт нагрузки ───────────────────────────────────────
+// --- Расчёт нагрузки ---------------------------------------
 function calculateLoad(inputs: PileInputs): {
   area_m2: number;
   load_per_m2: number;
@@ -52,7 +52,7 @@ function calculateLoad(inputs: PileInputs): {
   return { area_m2, load_per_m2: baseLoad, factor, total_load_kg };
 }
 
-// ─── Построение сетки ─────────────────────────────────────
+// --- Построение сетки -------------------------------------
 function buildGrid(length_mm: number, width_mm: number) {
   const count_x = Math.ceil(length_mm / MAX_PILE_STEP_MM) + 1;
   const count_y = Math.ceil(width_mm / MAX_PILE_STEP_MM) + 1;
@@ -62,7 +62,7 @@ function buildGrid(length_mm: number, width_mm: number) {
   return { count_x, count_y, step_x_mm, step_y_mm, pile_count };
 }
 
-// ─── Подбор диаметра ──────────────────────────────────────
+// --- Подбор диаметра --------------------------------------
 function selectDiameter(total_load_kg: number, pile_count: number): {
   diameter: PileDiameter;
   price_per_pile: number;
@@ -73,7 +73,7 @@ function selectDiameter(total_load_kg: number, pile_count: number): {
   return { diameter: 108, price_per_pile: 10000 };
 }
 
-// ─── ГЛАВНАЯ ФУНКЦИЯ ──────────────────────────────────────
+// --- ГЛАВНАЯ ФУНКЦИЯ --------------------------------------
 /**
  * Выполняет полный расчёт свайного поля по входным данным
  */
