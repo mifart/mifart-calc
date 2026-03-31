@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, ReactNode } from "react";
 import { IMaskInput } from "react-imask";
-import { Logs, Home, Bath, Trees, Carport, Sprout, HardHat, Layers, Truck, Share2, Paperclip, X, Image as ImageIcon, FileText, File } from 'lucide-react';
+import { Logs, Home, Bath, Trees, Warehouse, Sprout, HardHat, Layers, Truck, Share2, Paperclip, X, Image as ImageIcon, FileText, File } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
 /* --- CONSTANTS ----------------------------------- */
@@ -13,7 +13,7 @@ const SERVICES = [
   { id: "house", icon: <Home />, label: "Каркасный дом", desc: "Строительство под ключ" },
   { id: "bath", icon: <Bath />, label: "Баня", desc: "Каркасные бани" },
   { id: "gazebo", icon: <Trees />, label: "Беседка / Терраса", desc: "Беседки, террасы, веранды" },
-  { id: "canopy", icon: <Carport />, label: "Навес", desc: "Навесы для авто и техники" },
+  { id: "canopy", icon: <Warehouse />, label: "Навес", desc: "Навесы для авто и техники" },
   { id: "landscape", icon: <Sprout />, label: "Благоустройство", desc: "Озеленение, площадки, заборы" },
   { id: "asphalt", icon: <HardHat />, label: "Асфальтирование", desc: "Укладка асфальта" },
   { id: "covering", icon: <Layers />, label: "Покрытия", desc: "Срезка, гранула, крошка" },
